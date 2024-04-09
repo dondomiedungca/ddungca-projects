@@ -16,9 +16,13 @@ export const Calculator = () => {
 
   const createComputation = (value: number | string) => {
     const lastChar = stringComputation[stringComputation.length - 1];
+    const lastGroupNumber = stringComputation
+      .split(" ")
+      .filter((gr) => gr != " " && !"+-/*".includes(gr));
     if (
-      (lastChar === undefined || lastChar == " ") &&
-      "+-x/".includes(value as any)
+      ((lastChar === undefined || lastChar == " ") &&
+        "+-x/".includes(value as any)) ||
+      (lastGroupNumber.pop()?.includes(".") && value == ".")
     ) {
       return;
     }
